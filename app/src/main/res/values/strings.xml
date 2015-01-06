@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="navigation_drawer_items">
+        <item>Mapa</item>
+        <item>Entrenamientos</item>
+        <item>Rutas</item>
+        <item>Amigos</item>
+        <item>Eventos</item>
+    </string-array>
+
+    <string name="app_name">Trailicious</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
