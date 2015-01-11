@@ -9,15 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import jony.trailicious_api16.Fragments.DummyFragment;
 
 
 public class BaseActivity extends ActionBarActivity {
@@ -47,7 +46,7 @@ public class BaseActivity extends ActionBarActivity {
         // set a custom shadow that overlays the main content when the drawer opens
         drawerLayoutt.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-        listView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, navigationDrawerItems));
+        listView.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, navigationDrawerItems));
         listView.setOnItemClickListener(new DrawerItemClickListener());
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayoutt, toolbar, R.string.app_name, R.string.app_name);
@@ -134,24 +133,5 @@ public class BaseActivity extends ActionBarActivity {
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public static class DummyFragment extends Fragment {
-        public static final String ARG_MENU_INDEX = "index";
-
-        public DummyFragment() {
-            // Empty constructor required for fragment subclasses
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.dummy_fragment, container, false);
-            int index = getArguments().getInt(ARG_MENU_INDEX);
-
-            String text = String.format("Trailicious. Index %s", index);
-
-            ((TextView) rootView.findViewById(R.id.textView)).setText(text);
-            getActivity().setTitle("Trailicious");
-            return rootView;
-        }
-    }
 }
 
