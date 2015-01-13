@@ -33,7 +33,6 @@ public class BaseActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -107,6 +106,7 @@ public class BaseActivity extends ActionBarActivity {
             case 0:
                 //Mapa
                 fragment = new MapFragment();
+
                 //No le paso ningún argumento
                 break;
             default:
