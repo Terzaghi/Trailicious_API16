@@ -56,27 +56,27 @@ public class GoogleLoginActivity extends Activity
             @Override
             public void onClick(View view)
             {
-                if (!plusClient.isConnected())
+            if (!plusClient.isConnected())
+            {
+                if (connectionResult == null)
                 {
-                    if (connectionResult == null)
+                    connectionProgressDialog.show();
+                }
+                else
+                {
+                    try
                     {
-                        connectionProgressDialog.show();
+                        connectionResult.startResolutionForResult(
+                                GoogleLoginActivity.this,
+                                REQUEST_CODE_RESOLVE_ERR);
                     }
-                    else
+                    catch (SendIntentException e)
                     {
-                        try
-                        {
-                            connectionResult.startResolutionForResult(
-                                    GoogleLoginActivity.this,
-                                    REQUEST_CODE_RESOLVE_ERR);
-                        }
-                        catch (SendIntentException e)
-                        {
-                            connectionResult = null;
-                            plusClient.connect();
-                        }
+                        connectionResult = null;
+                        plusClient.connect();
                     }
                 }
+            }
             }
         });
 
@@ -94,6 +94,9 @@ public class GoogleLoginActivity extends Activity
         Person p = plusClient.getCurrentPerson();
         intent.putExtra("current_person", (android.os.Parcelable) p);
         startActivity(intent);
+
+        //Creo una pequeña animación entre las actividades
+        //overridePendingTransition(R.animator.activity_close, R.animator.activity_open);
     }
 
     @Override

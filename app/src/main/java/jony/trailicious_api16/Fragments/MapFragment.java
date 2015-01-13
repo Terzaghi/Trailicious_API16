@@ -8,6 +8,8 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -72,50 +74,62 @@ public class MapFragment extends Fragment {
     }
 
     public void iniciaProveedor() {
-        //Obtenemos una referencia al LocationManager
-        locManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        try {
+            //Obtenemos una referencia al LocationManager
+            locManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        //Obtenemos la última posición conocida
-        android.location.Location loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            //Obtenemos la última posición conocida
+            android.location.Location loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        //Mostramos la última posición conocida
-        mostrarPosicion(loc);
+            //Mostramos la última posición conocida
+            mostrarPosicion(loc);
 
-        //Nos registramos para recibir actualizaciones de la posición
-        LocationListener locListener = new LocationListener() {
-            public void onLocationChanged(android.location.Location location) {
-                mostrarPosicion(location);
-            }
+            //Nos registramos para recibir actualizaciones de la posición
+            LocationListener locListener = new LocationListener() {
+                public void onLocationChanged(android.location.Location location) {
+                    mostrarPosicion(location);
+                }
 
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
 
-            @Override
-            public void onProviderEnabled(String provider) {
-            }
+                @Override
+                public void onProviderEnabled(String provider) {
+                }
 
-            @Override
-            public void onProviderDisabled(String provider) {
-            }
-        };
+                @Override
+                public void onProviderDisabled(String provider) {
+                }
+            };
 
-        locManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 5000, 1, locListener); //Se actualiza a los 5 segundos y cuando se mueva 1 metro
+            locManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 5000, 1, locListener); //Se actualiza a los 5 segundos y cuando se mueva 1 metro
+        }
+        catch(NullPointerException ex) {
+                Toast.makeText(getActivity(), ex.toString(), Toast.LENGTH_LONG);
+        }
     }
     public void mostrarPosicion(android.location.Location loc) {
-        double latitud = loc.getLatitude();
-        double longitud = loc.getLongitude();
+        try {
+            if (loc != null) { //Si el GPS está desactivado loc = null
+                double latitud = loc.getLatitude();
+                double longitud = loc.getLongitude();
 
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(latitud, longitud), zoom);
-        map.animateCamera(cameraUpdate);
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(latitud, longitud), zoom);
+                map.animateCamera(cameraUpdate);
 
 
-        map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-            @Override
-            public void onCameraChange(CameraPosition cameraPosition) {
-                zoom = cameraPosition.zoom;
+                map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+                    @Override
+                    public void onCameraChange(CameraPosition cameraPosition) {
+                        zoom = cameraPosition.zoom;
+                    }
+                });
             }
-        });
+        }
+        catch(NullPointerException ex) {
+            Toast.makeText(getActivity(), ex.toString(), Toast.LENGTH_LONG);
+        }
     }
 }
