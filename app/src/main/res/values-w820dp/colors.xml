@@ -22,6 +22,7 @@
 
 
     <!-- ycobo: colores materialpalette.com (más los tres primeros) -->
+    <color name="navigation_drawer_background">#CCCCCC</color>
     <color name="light_primary_color">#C8E6C9</color>
     <color name="text_icons">#FFFFFF</color>
     <color name="primary_text">#212121</color>

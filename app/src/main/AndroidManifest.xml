@@ -2,11 +2,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jony.trailicious_api16" >
 
+    <!--
+        Permisos que permiten acceder a internet (INTERNET),
+        conocer el estado de la red (ACCESS_NETWORK_STATE),
+        acceder al almacenamiento externo del dispositivo para la caché de mapas (WRITE_EXTERNAL_STORAGE)
+        y hacer uso de los servicios web de Google (READ_GSERVICES).
+        -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!--
+    API v2 de Google Maps Android utiliza OpenGL ES versión 2, deberemos especificar también dicho requisito
+    -->
+    <uses-feature android:glEsVersion="0x00020000"
+        android:required="true"/>
+
+    <!-- <permission
+        android:name="com.example.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/> -->
+
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- API Key para utilizar Google Maps -->
+        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAnwJTPhklBbL01PHchb5gdslFsolR2Bvo"/>
+
         <activity
             android:name=".BaseActivity"
             android:label="@string/app_name" >

@@ -17,7 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import jony.trailicious_api16.Fragments.DummyFragment;
-
+import jony.trailicious_api16.Fragments.MapFragment;
 
 public class BaseActivity extends ActionBarActivity {
 
@@ -93,25 +93,36 @@ public class BaseActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Selección de un item en la lista del navigation drawer
+     * @param position posicion pulsada
+     */
     private void selectItem(int position) {
-        // update the main content by replacing fragments
-        Fragment fragment = new DummyFragment();
-        Bundle args = new Bundle();
-        args.putInt(DummyFragment.ARG_MENU_INDEX, position);
-        fragment.setArguments(args);
 
+        Fragment fragment;
+        Bundle args = new Bundle();
+
+
+        switch (position) {
+            case 0:
+                //Mapa
+                fragment = new MapFragment();
+                //No le paso ningún argumento
+                break;
+            default:
+                //Dummy Fragment
+                fragment = new DummyFragment();
+                args.putInt(DummyFragment.ARG_MENU_INDEX, position);
+                fragment.setArguments(args);
+        }
+
+        //Cargo el fragmento
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
-        // update selected item and title, then close the drawer
+        //Selecciono el elemento en el Navigation Drawer y le cierro
         listView.setItemChecked(position, true);
-        setTitle(navigationDrawerItems[position]);
         drawerLayoutt.closeDrawer(listView);
-    }
-
-    @Override
-    public void setTitle(CharSequence title) {
-        getSupportActionBar().setTitle(title);
     }
 
     /**
