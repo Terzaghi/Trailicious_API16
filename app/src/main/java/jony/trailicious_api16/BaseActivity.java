@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.plus.model.people.Person;
+
 import jony.trailicious_api16.Fragments.DummyFragment;
 import jony.trailicious_api16.Fragments.MapFragment;
 
@@ -33,6 +35,10 @@ public class BaseActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
+        //Obtengo los datos de la persona logeada
+        Person persona = (Person) getIntent().getParcelableExtra("current_person") ;
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
