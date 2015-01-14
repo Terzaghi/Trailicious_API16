@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.google.android.gms.plus.model.people.Person;
 
+import jony.trailicious_api16.Adapters.NavigationDrawerAdapter;
 import jony.trailicious_api16.Fragments.DummyFragment;
 import jony.trailicious_api16.Fragments.MapFragment;
 
@@ -29,7 +30,10 @@ public class BaseActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
 
-    private String[] navigationDrawerItems;
+    Person persona; //Persona Logeada en la App
+
+    //Instancio el Adaptador de prueba:
+    private NavigationDrawerAdapter drawerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,21 +41,23 @@ public class BaseActivity extends ActionBarActivity {
         setContentView(R.layout.activity_base);
 
         //Obtengo los datos de la persona logeada
-        Person persona = (Person) getIntent().getParcelableExtra("current_person") ;
+        persona = (Person) getIntent().getParcelableExtra("current_person") ;
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setLogo(R.drawable.logo_blanco);
 
-        navigationDrawerItems = getResources().getStringArray(R.array.navigation_drawer_items);
         drawerLayoutt = (DrawerLayout) findViewById(R.id.drawer_layout);
         listView = (ListView) findViewById(R.id.left_drawer);
 
-        // set a custom shadow that overlays the main content when the drawer opens
+        // Sombra que se sobrepone al contenido principal cuando el drawer está abierto
         drawerLayoutt.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-        listView.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, navigationDrawerItems));
+
+        // Establezco el Adaptador del ListView del NavigationDrawer y creo el Listener Click
+        drawerAdapter = new NavigationDrawerAdapter(this);
+        listView.setAdapter(drawerAdapter);
+
         listView.setOnItemClickListener(new DrawerItemClickListener());
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayoutt, toolbar, R.string.app_name, R.string.app_name);
