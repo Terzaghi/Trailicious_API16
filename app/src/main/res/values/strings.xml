@@ -18,13 +18,12 @@
     <!-- Accesibilidad -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_google_login">GoogleLoginActivity</string>
-    <string name="hello_world">Hello world!</string>
 
     <!-- Login Google+ -->
     <string name="action_sign_out">Cerrar Sesión</string>
     <string name="action_revoke">Desconectar App</string>
+    <string name="openDrawer">Drawer Abierto</string>
+    <string name="closeDrawer">Drawer Cerrado</string>
 
 
 </resources>
