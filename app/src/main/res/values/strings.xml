@@ -3,12 +3,22 @@
 
     <string name="app_name">Trailicious</string>
 
-    <string-array name="navigation_drawer_items">
+    <!-- Lista de Textos del Drawer -->
+    <string-array name="navigation_drawer_items_text">
         <item>Mapa</item>
         <item>Entrenamientos</item>
         <item>Rutas</item>
         <item>Amigos</item>
         <item>Eventos</item>
+    </string-array>
+
+    <!-- Lista de iconos del drawer -->
+    <string-array name="navigation_drawer_items_images">
+        <item>R.drawable.icon_launcher</item>
+        <item>R.drawable.icon_launcher</item>
+        <item>R.drawable.icon_launcher</item>
+        <item>R.drawable.icon_launcher</item>
+        <item>R.drawable.icon_launcher</item>
     </string-array>
 
     <!-- Menu Opciones -->
@@ -24,6 +34,6 @@
     <string name="action_revoke">Desconectar App</string>
     <string name="openDrawer">Drawer Abierto</string>
     <string name="closeDrawer">Drawer Cerrado</string>
-
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

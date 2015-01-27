@@ -194,6 +194,9 @@ public class GoogleLoginActivity extends Activity
 
         //Obtengo los datos de la persona logeada, los cuales pasaré a BaseActivity
         Person yo = plusClient.getCurrentPerson();
+
+        //AutoLogin
+        accedeApp();
     }
 
     @Override
