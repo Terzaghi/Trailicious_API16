@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme colors -->
+    <color name="trailicious_theme_default_primary">#4CAF50</color>
+    <color name="trailicious_theme_default_primary_dark">#388E3C</color>
+    <color name="trailicious_theme_accent">#FF5722</color>
+    <color name="trailicious_theme_window_background">#ECECEC</color>
+
+    <!-- general text colors -->
+    <color name="trailicious_text">#212121</color>
+    <color name="trailicious_secondary">#727272</color>
+    <color name="trailicious_hint">#B8B8B8</color>
+    <color name="trailicious_dividers">#DADADA</color>
+
+    <!-- general colors for drawer -->
+    <color name="trailicious_list_background">#F2F2F2</color>
+    <!-- primary colors for drawer -->
+    <color name="trailicious_list_background_normal">#FCFCFC</color>
+    <!-- secondary colors for drawer -->
+    <color name="trailicious_list_background_secondary_normal">#F2F2F2</color>
+
+
+    <!-- ycobo: colores materialpalette.com (más los tres primeros) -->
+    <color name="trailicious_navigation_drawer_background">#CCCCCC</color>
+    <color name="trailicious_light_primary_color">#C8E6C9</color>
+    <color name="trailicious_text_icons">#FFFFFF</color>
+    <color name="trailicious_primary_text">#212121</color>
+    <color name="trailicious_secondary_text">#727272</color>
+    <color name="trailicious_divider_color">#B6B6B6</color>
+    <color name="trailicious_fondo_semitransparente_blanco">#99FFFFFF</color>
+</resources>

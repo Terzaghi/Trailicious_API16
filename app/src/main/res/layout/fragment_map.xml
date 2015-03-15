@@ -1,9 +1,170 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
 
     <com.google.android.gms.maps.MapView android:id="@+id/mapview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/divControles" />
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/divDuracion"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/trailicious_fondo_semitransparente_blanco" >
+        <!-- android:background="@android:color/darker_gray" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/duracion"
+            android:id="@+id/txtDuracionTitle"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:layout_below="@+id/txtDuracionTitle"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/divDistancia"
+        android:layout_alignRight="@+id/divDuracion"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/trailicious_fondo_semitransparente_blanco" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/distancia"
+            android:id="@+id/txtDistanciaTitle"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+
+
+        <TextView
+            android:id="@+id/txtDistancia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:layout_below="@+id/txtDistanciaTitle"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:text="0,00 Km." />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/divControles"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/trailicious_fondo_semitransparente_blanco"
+        android:weightSum="1.0">
+
+
+        <Button
+            android:visibility="visible"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/iniciar"
+            android:id="@+id/btnPlay"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="#FF5722"/>
+        <Button
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:text="@string/pause"
+            android:id="@+id/btnPause"
+            android:background="#2257FF"/>
+        <Button
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:layout_toRightOf="@+id/btnPause"
+            android:text="@string/stop"
+            android:id="@+id/btnStop"
+            android:background="#FF5722"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/trailicious_text"
+        android:text="GPS"
+        android:id="@+id/txt_gps"
+        android:layout_alignBottom="@+id/mapview"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/img_gps_state"
+        android:layout_alignBottom="@+id/txt_gps"
+        android:layout_toLeftOf="@+id/txt_gps"
+        android:layout_toStartOf="@+id/txt_gps"
+        />
+
+</RelativeLayout>

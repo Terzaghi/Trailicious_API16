@@ -19,6 +19,8 @@ android {
     }
 }
 
+repositories { mavenCentral() }
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -27,6 +29,7 @@ dependencies {
 
     //Google Maps
     compile 'com.google.android.gms:play-services:6.5.87'
+    //compile 'com.google.android.gms:play-services:3.1.36'
 
     //Libreria para agregar un Floating Action Button
     compile 'com.getbase:floatingactionbutton:1.2.1'
@@ -36,4 +39,11 @@ dependencies {
 
     //Libreria para volver circular una Imagen
     compile 'de.hdodenhof:circleimageview:1.2.1'
+
+    //Login Facebook
+    compile 'com.facebook.android:facebook-android-sdk:3.21.1'
+
+    //Parse
+    compile 'com.parse.bolts:bolts-android:1.+'
+    compile fileTree(dir: 'libs', include: 'Parse-1.8.3.jar')
 }

@@ -1,7 +1,7 @@
 package jony.trailicious_api16.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import jony.trailicious_api16.Models.ImageLoader;
 import jony.trailicious_api16.R;
 
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.ViewHolder> {
@@ -17,17 +16,17 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     // IF the view under inflation and population is header or Item
     private static final int TYPE_ITEM = 1;
 
-    private String mNavTitles[]; // String Array to store the passed titles Value from MainActivity.java
-    private int mIcons[];       // Int Array to store the passed icons resource value from MainActivity.java
+    private String mNavTitles[];
+    private TypedArray mIcons;
 
-    private String name;        //String Resource for header View Name
-    //private int profile;        //int Resource for header view profileImage picture
+    //private String nombreUsuario;        //String Resource for header View Name
 
-    String urlImagenPerfil;
+    //private static final int PROFILE_PIC_SIZE = 400;    // Tamaño de la imagen de perfil del usuairo en pixeles
+    //String urlImagenPerfil;
+
     Context context;
 
-    private Bitmap bitmap;
-    private String email;       //String Resource for header view email
+    //private String email;       //String Resource for header view email
 
 
     // Creating a ViewHolder which extends the RecyclerView View Holder
@@ -39,7 +38,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         TextView textView;
         ImageView imageView;
         ImageView profileImage;
-        TextView Name;
+        static TextView Name;
         TextView email;
 
 
@@ -56,9 +55,9 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
             else{
 
 
-                Name = (TextView) itemView.findViewById(R.id.name);         // Creating Text View object from header.xml for name
-                email = (TextView) itemView.findViewById(R.id.email);       // Creating Text View object from header.xml for email
-                profileImage = (ImageView) itemView.findViewById(R.id.circleView);// Creating Image view object from header.xml for profileImage pic
+                Name = (TextView) itemView.findViewById(R.id.drawer_nombre_usuario);         // Creating Text View object from header.xml for name
+                email = (TextView) itemView.findViewById(R.id.drawer_email_usuario);       // Creating Text View object from header.xml for email
+                profileImage = (ImageView) itemView.findViewById(R.id.drawer_icon_usuario);// Creating Image view object from header.xml for profileImage pic
                 Holderid = 0;                                                // Setting holder id = 0 as the object being populated are of type header view
             }
         }
@@ -66,16 +65,12 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
     }
 
-
-
-    public NavigationDrawerAdapter(String Titles[],int Icons[],String Name,String Email, String url, Context context){ // MyAdapter Constructor with titles and icons parameter
-        // titles, icons, name, email, profile pic are passed from the main activity as we
-        mNavTitles = Titles;                //have seen earlier
-        mIcons = Icons;
-        name = Name;
-        email = Email;
-        //profile = Profile;                     //Imagen de perfil en modo int, Google+ nos da una url asi que lo hacemos con urlImagenPerfil
-        urlImagenPerfil = url;
+    public NavigationDrawerAdapter(Context context){
+        /*this.nombreUsuario = nombreUsuario;
+        this.email = Email;
+        this.urlImagenPerfil = urlFoto;*/
+        this.mNavTitles = context.getResources().getStringArray(R.array.navigation_drawer_items_text);
+        this.mIcons = context.getResources().obtainTypedArray(R.array.navigation_drawer_items_images);
         this.context = context;
 
     }
@@ -118,24 +113,24 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     // which view type is being created 1 for item row
     @Override
     public void onBindViewHolder(NavigationDrawerAdapter.ViewHolder holder, int position) {
-        if(holder.Holderid ==1) {                              // as the list view is going to be called after the header view so we decrement the
-            // position by 1 and pass it to the holder while setting the text and image
-            holder.textView.setText(mNavTitles[position - 1]); // Setting the Text with the array of our Titles
-            holder.imageView.setImageResource(mIcons[position -1]);// Settimg the image with array of our icons
+        if(holder.Holderid == 1) {
+            holder.textView.setText(mNavTitles[position - 1]);
+
+            holder.imageView.setImageResource(mIcons.getResourceId(position - 1, -1));
         }
-        else{
+        else {
+            //El usuario se logea de forma asíncrona por lo que sus datos será pintados cuando esté dentro
+            /*if (urlImagenPerfil != null && nombreUsuario != null && email != null) {
+                //Por defecto la imagen viene en 50x50 px. La podemos reemplazar con la dimension que queramos reemplazando sz=X
+                urlImagenPerfil = urlImagenPerfil.substring(0,
+                        urlImagenPerfil.length() - 2)
+                        + PROFILE_PIC_SIZE;
 
-            //TODO: intengo cargar la imagen de perfil desde una url
-            // holder.profileImage.setImageResource(profile);           // Similarly we set the resources for header view
-            int loader = R.drawable.icon_launcher; //Imagne mostrada mientras se carga de la URL
-            ImageLoader imgLoader = new ImageLoader(context);
+                new LoadProfileImage(holder.profileImage).execute(urlImagenPerfil);
 
-            imgLoader.DisplayImage(urlImagenPerfil, loader, holder.profileImage);
-
-            //TODO: FIN intengo cargar la imagen de perfil desde una url
-
-            holder.Name.setText(name);
-            holder.email.setText(email);
+                holder.Name.setText(nombreUsuario);
+                holder.email.setText(email);
+            }*/
         }
     }
 
@@ -146,7 +141,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     }
 
 
-    // Witht the following method we check what type of view is being passed
+    // With the following method we check what type of view is being passed
     @Override
     public int getItemViewType(int position) {
         if (isPositionHeader(position))
@@ -158,6 +153,4 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     private boolean isPositionHeader(int position) {
         return position == 0;
     }
-
-
 }

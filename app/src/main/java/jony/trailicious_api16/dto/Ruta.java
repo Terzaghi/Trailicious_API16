@@ -2,11 +2,10 @@ package jony.trailicious_api16.dto;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Ruta implements Serializable {
+public class Ruta { //implements Serializable
     private int id_ruta;
     private float distancia;
     private String nombre_ruta;

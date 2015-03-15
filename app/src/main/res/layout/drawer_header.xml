@@ -2,8 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="178dp"
-    android:background="@drawable/background_poly"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/background_landscape"
     android:orientation="vertical"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
     android:weightSum="1">
 
     <LinearLayout
@@ -12,42 +15,41 @@
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true" >
 
         <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:id="@+id/drawer_nombre_usuario"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:textColor="#ffffff"
-            android:text="Yonathan Cobo"
+            android:text="My Name"
             android:textSize="14sp"
             android:textStyle="bold"
 
             />
 
         <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
+            android:id="@+id/drawer_email_usuario"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
             android:text="mi@email.com"
             android:textSize="14sp"
             android:textStyle="normal"
             />
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <de.hdodenhof.circleimageview.CircleImageView
+        <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/icon_launcher"
-        android:layout_marginLeft="16dp"
+        android:src="@drawable/icon_drawer_user"
         android:layout_marginTop="38dp"
-        android:id="@+id/circleView"
-        />
+        android:id="@+id/drawer_icon_usuario"
+        android:visibility="visible" />
+
+
+
 
     <!--<View
             style="@style/divider" /> -->

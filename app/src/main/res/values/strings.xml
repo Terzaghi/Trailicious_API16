@@ -2,28 +2,30 @@
 <resources>
 
     <string name="app_name">Trailicious</string>
+    <string name="action_settings">Ajustes</string>
 
     <!-- Lista de Textos del Drawer -->
     <string-array name="navigation_drawer_items_text">
-        <item>Mapa</item>
-        <item>Entrenamientos</item>
+        <item>Entrenamiento</item>
+        <item>Historial</item>
         <item>Rutas</item>
-        <item>Amigos</item>
-        <item>Eventos</item>
     </string-array>
 
     <!-- Lista de iconos del drawer -->
+    <!--<string-array name="navigation_drawer_items_images">-->
+        <!--<item>R.drawable.icon_drawer_entrenamiento</item>-->
+        <!--<item>R.drawable.icon_drawer_historial</item>-->
+        <!--<item>R.drawable.icon_drawer_ruta</item>-->
+    <!--</string-array>-->
+
     <string-array name="navigation_drawer_items_images">
-        <item>R.drawable.icon_launcher</item>
-        <item>R.drawable.icon_launcher</item>
-        <item>R.drawable.icon_launcher</item>
-        <item>R.drawable.icon_launcher</item>
-        <item>R.drawable.icon_launcher</item>
+        <item>@drawable/icon_drawer_entrenamiento</item>
+        <item>@drawable/icon_drawer_historial</item>
+        <item>@drawable/icon_drawer_ruta</item>
     </string-array>
 
     <!-- Menu Opciones -->
-    <string name="action_settings">Settings</string>
-    <string name="action_example">Example action</string>
+    <string name="action_desconectar">Desconectar</string>
 
     <!-- Accesibilidad -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -34,6 +36,26 @@
     <string name="action_revoke">Desconectar App</string>
     <string name="openDrawer">Drawer Abierto</string>
     <string name="closeDrawer">Drawer Cerrado</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <!-- Textos GoogleLoginActivity -->
+    <string name="conectando">Conectando...</string>
+    <string name="conectado">¡Conectado!</string>
+
+    <!-- Textos Map Fragment -->
+    <string name="distancia">Distancia</string>
+    <string name="duracion">Duración</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="gps_encendido">GPS Encendido</string>
+    <string name="gps_apagado">GPS Apagado</string>
+
+<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_new_main">NewMainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+
 
 </resources>
