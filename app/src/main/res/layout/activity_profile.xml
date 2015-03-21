@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jony.trailicious_api16.Activities.ProfileActivity"
+    android:background="@color/trailicious_navigation_drawer_background" >
+
+    <include layout="@layout/profile_toolbar"/>
+
+    <TextView
+        android:id="@+id/profile_nombre_usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/trailicious_primary_text"
+        android:text=""
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/profile_icon_usuario"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/profile_email_usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/trailicious_secondary_text"
+        android:text=""
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        android:layout_below="@+id/profile_nombre_usuario"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_icon_usuario"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="103dp"
+        android:elevation="1dp" />
+
+
+    <ProgressBar
+        android:id="@+id/progress_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

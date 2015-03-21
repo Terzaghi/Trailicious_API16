@@ -9,8 +9,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import jony.trailicious_api16.R;
-import jony.trailicious_api16.Utils.Parse;
-import jony.trailicious_api16.dto.Historico;
+import jony.trailicious_api16.Utils.Format;
+import jony.trailicious_api16.ParseTables.Historico;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
@@ -39,6 +39,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         }
     }
 
+    public void addList(List<Historico> data) {
+        this.lstHistoricos = data;
+    }
+
     @Override
     public HistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
@@ -51,9 +55,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         Historico historico = lstHistoricos.get(position);
 
 
-        String duracion = Parse.segundos2String(historico.getDuration());
-        String distancia = Parse.distancia2String(historico.getDistance());
-        String fecha = Parse.date2String(historico.getFecha());
+        String duracion = Format.segundos2String(historico.getDuration());
+        String distancia = Format.distancia2String(historico.getDistance());
+        String fecha = Format.date2String(historico.getFecha());
 
 
         holder.fecha.setText(fecha);

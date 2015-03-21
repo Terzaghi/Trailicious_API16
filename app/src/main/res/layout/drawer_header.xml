@@ -11,6 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:id="@+id/layout_textos"
         android:layout_height="56dp"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
@@ -22,11 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:text="My Name"
+            android:text=""
             android:textSize="14sp"
             android:textStyle="bold"
-
-            />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/drawer_email_usuario"
@@ -34,26 +34,25 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:layout_marginTop="5dp"
-            android:text="mi@email.com"
+            android:text=""
             android:textSize="14sp"
             android:textStyle="normal"
-            />
-        </LinearLayout>
+            android:visibility="gone" />
+    </LinearLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/icon_drawer_user"
         android:layout_marginTop="38dp"
         android:id="@+id/drawer_icon_usuario"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
-
-
-
-    <!--<View
-            style="@style/divider" /> -->
-
-
+    <ProgressBar
+        android:id="@+id/progress_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

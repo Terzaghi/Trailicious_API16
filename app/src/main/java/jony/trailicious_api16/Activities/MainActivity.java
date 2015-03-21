@@ -1,4 +1,4 @@
-package jony.trailicious_api16;
+package jony.trailicious_api16.Activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -18,32 +18,27 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
 
 import jony.trailicious_api16.Adapters.NavigationDrawerAdapter;
 import jony.trailicious_api16.Fragments.DummyFragment;
 import jony.trailicious_api16.Fragments.HistoryFragment;
 import jony.trailicious_api16.Fragments.MapFragmentWithService;
-import jony.trailicious_api16.Fragments.ProfileFragment;
-import jony.trailicious_api16.Models.ApiClientAsyncTask;
+import jony.trailicious_api16.R;
+import jony.trailicious_api16.TrailiciousApplication;
 import jony.trailicious_api16.Utils.LoadProfileImage;
+import jony.trailicious_api16.dto.FacebookUser;
 
-/**
- * Nueva versión de BaseActivity
- */
-public class NewMainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity {
 
-    private static final String TAG = NewMainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     // Elementos del Menú
     private Menu mOptionsMenu;
     private boolean mostrarRevocar = false;
+
+    private boolean headerIniciado = false; //Especifica si los datos del usuario ya han sido pintados en el Header del Drawer
 
     // Elementos del ActionBar
     private ActionBarDrawerToggle mDrawerToggle;
@@ -55,15 +50,22 @@ public class NewMainActivity extends ActionBarActivity {
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
 
-    //Usuario
-    GoogleApiClient googleApiClient;
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
 
+        //Si el usuario pulsa back desde MainActivity, no vuelvo a FacebookActivity si no que salgo de la app
 
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_main);
 
         iniciaToolbar();
         iniciaNavigationDrawer();
@@ -71,9 +73,6 @@ public class NewMainActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
             drawerSelect(1); //Mapa
         }
-
-        //logeaUsuario();
-
     }
 
 
@@ -130,7 +129,7 @@ public class NewMainActivity extends ActionBarActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         //Evento Click del Drawer
-        final GestureDetector mGestureDetector = new GestureDetector(NewMainActivity.this, new GestureDetector.SimpleOnGestureListener() {
+        final GestureDetector mGestureDetector = new GestureDetector(MainActivity.this, new GestureDetector.SimpleOnGestureListener() {
 
             @Override public boolean onSingleTapUp(MotionEvent e) {
                 return true;
@@ -160,7 +159,7 @@ public class NewMainActivity extends ActionBarActivity {
         });
 
         mLayoutManager = new LinearLayoutManager(this);                 // Creating a layout Manager
-
+        int elementos = mLayoutManager.getChildCount();
         mRecyclerView.setLayoutManager(mLayoutManager);                 // Setting the layout Manager
 
         Drawer = (DrawerLayout) findViewById(R.id.drawer_layout);        // Drawer object Assigned to the view
@@ -170,9 +169,17 @@ public class NewMainActivity extends ActionBarActivity {
 
         mDrawerToggle = new ActionBarDrawerToggle(this,Drawer,toolbar,R.string.openDrawer,R.string.closeDrawer){
 
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+
+                if (!headerIniciado) {
+                    FacebookUser Usuario = TrailiciousApplication.getUsuarioLogueado();
+                    if (Usuario != null) {
+                        actualizarUsuario(Usuario.getName(), Usuario.getEmail(), Usuario.getImgURL());
+                    }
+                }
             }
 
             @Override
@@ -203,7 +210,7 @@ public class NewMainActivity extends ActionBarActivity {
     /**
      * Logea al usuario en un nuevo hilo
      */
-    private void logeaUsuario() {
+    /*private void logeaUsuario() {
         final ApiClientAsyncTask asyncTask = new ApiClientAsyncTask(getApplicationContext()) {
             @Override
             protected Object doInBackgroundConnected(Object[] params) {
@@ -232,7 +239,7 @@ public class NewMainActivity extends ActionBarActivity {
             }
         };
         asyncTask.execute();
-    }
+    }*/
 
     /**
      * Actualizo los datos del usuario
@@ -242,24 +249,42 @@ public class NewMainActivity extends ActionBarActivity {
      */
     private void actualizarUsuario(String personName, String personEmail, String personPhotoUrl) {
         try {
-            View hijo = mLayoutManager.getChildAt(0);
-            TextView txtNombre = (TextView) hijo.findViewById(R.id.drawer_nombre_usuario);
-            TextView txtEmail = (TextView) hijo.findViewById(R.id.drawer_email_usuario);
-            ImageView imgIcon = (ImageView) hijo.findViewById(R.id.drawer_icon_usuario);
+            if (mLayoutManager != null) {
+
+                View hijo = mLayoutManager.getChildAt(0);
+
+                TextView txtNombre = (TextView) hijo.findViewById(R.id.drawer_nombre_usuario);
+                TextView txtEmail = (TextView) hijo.findViewById(R.id.drawer_email_usuario);
+                ImageView imgIcon = (ImageView) hijo.findViewById(R.id.drawer_icon_usuario);
+
+                if (imgIcon != null && personPhotoUrl != null) {
+                    /*int PROFILE_PIC_SIZE = 400; // Tamaño de la imagen de perfil del usuairo en pixeles
+                    personPhotoUrl = personPhotoUrl.substring(0,
+                            personPhotoUrl.length() - 2)
+                            + PROFILE_PIC_SIZE;*/
+
+                    new LoadProfileImage(imgIcon).execute(personPhotoUrl);
+                }
+                if (txtNombre != null && personName != null)
+                    txtNombre.setText(personName);
+
+                if (txtEmail != null && personEmail != null)
+                    txtEmail.setText(personEmail);
 
 
-            int PROFILE_PIC_SIZE = 400; // Tamaño de la imagen de perfil del usuairo en pixeles
-            personPhotoUrl = personPhotoUrl.substring(0,
-                    personPhotoUrl.length() - 2)
-                    + PROFILE_PIC_SIZE;
+                ProgressBar pb = (ProgressBar) hijo.findViewById(R.id.progress_header);
 
-            new LoadProfileImage(imgIcon).execute(personPhotoUrl);
+                txtNombre.setVisibility(View.VISIBLE);
+                txtEmail.setVisibility(View.VISIBLE);
+                imgIcon.setVisibility(View.VISIBLE);
+                pb.setVisibility(View.GONE);
 
-            txtNombre.setText(personName);
-            txtEmail.setText(personEmail);
+
+                headerIniciado = true;
+            }
         }
         catch(Exception er){
-            Log.d("actualizarUsuario", er.getMessage());
+            Log.e("actualizarUsuario", er.toString());
         }
     }
 
@@ -269,13 +294,14 @@ public class NewMainActivity extends ActionBarActivity {
      */
     private void drawerSelect(int position) {
 
-        Fragment fragment;
+        Fragment fragment = null;
         Bundle args = new Bundle();
 
         switch (position) {
             case 0:
                 //Perfil
-                fragment = new ProfileFragment();
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
                 break;
             case 1:
                 //Entrenamiento
@@ -320,33 +346,36 @@ public class NewMainActivity extends ActionBarActivity {
             }
         }
 
-        //Cargo el fragmento
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        //Cargo el fragmento. Si fragment = null es que no tiene que cargar un fragmento, si no que cambia de actividad
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        }
     }
 
     /**
      * Revoca el acceso del usuario
      */
     private void revocarAcceso() {
-        try {
-            if (googleApiClient != null && googleApiClient.isConnected()) {
-                Plus.AccountApi.clearDefaultAccount(googleApiClient);
-                Plus.AccountApi.revokeAccessAndDisconnect(googleApiClient)
-                        .setResultCallback(new ResultCallback<Status>() {
-                            @Override
-                            public void onResult(Status arg0) {
-                                googleApiClient.connect();
-                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                startActivity(intent);
-                            }
-
-                        });
-            }
-        }
-        catch(Exception er){
-            Log.d("revocarAcceso", er.getMessage());
-        }
+        //TODO Cambiar el revocar acceso por el de Facebook
+//        try {
+//            if (googleApiClient != null && googleApiClient.isConnected()) {
+//                Plus.AccountApi.clearDefaultAccount(googleApiClient);
+//                Plus.AccountApi.revokeAccessAndDisconnect(googleApiClient)
+//                        .setResultCallback(new ResultCallback<Status>() {
+//                            @Override
+//                            public void onResult(Status arg0) {
+//                                googleApiClient.connect();
+//                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//                                startActivity(intent);
+//                            }
+//
+//                        });
+//            }
+//        }
+//        catch(Exception er){
+//            Log.d("revocarAcceso", er.getMessage());
+//        }
     }
 
 }

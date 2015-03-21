@@ -2,12 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jony.trailicious_api16" >
 
-    <!--
-        Permisos que permiten acceder a internet (INTERNET),
-        conocer el estado de la red (ACCESS_NETWORK_STATE),
-        acceder al almacenamiento externo del dispositivo para la caché de mapas (WRITE_EXTERNAL_STORAGE)
-        y hacer uso de los servicios web de Google (READ_GSERVICES).
-    -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -37,7 +31,7 @@
         <!-- API Key para utilizar Google Maps -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDEJvRafi9KyrlHSfkxD4yVarlPsDWrPEU" />
+            android:value="@string/google_api_key" />
         <!--
         API vieja: AIzaSyAnwJTPhklBbL01PHchb5gdslFsolR2Bvo
         más nueva: android:value="AIzaSyDRs7b_cEzG3L8yhRcK4HdX6dJyijpYc64"
@@ -47,35 +41,39 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
-            android:name=".BaseActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
+
         <activity
-            android:name=".AutologinActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name=".NewMainActivity"
-            android:label="@string/title_activity_new_main"
+            android:name=".Activities.ProfileActivity"
+            android:label="@string/title_activity_profile"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.MainActivity" /> <!-- Añade una flecha en el ActionBar que retorna a MainActivity -->
+        </activity>
+        <activity
+            android:name=".Activities.FacebookActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- Actividad propia de Facebook para logear al usuario -->
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label="@string/title_activity_facebook" >
         </activity>
 
         <service
@@ -100,11 +98,12 @@
             android:name=".GpsReceiver"
             android:enabled="true"
             android:exported="true" >
-
             <intent-filter>
                 <action android:name="ConstantsUtils.GPS_STATE_INTENT_FILTER" />
             </intent-filter>
         </receiver>
+
+
     </application>
 
 </manifest>

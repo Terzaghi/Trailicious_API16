@@ -1,12 +1,20 @@
 package jony.trailicious_api16.Utils;
 
+import android.util.Log;
+
+import com.parse.ParseObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import jony.trailicious_api16.dto.FacebookUser;
+import jony.trailicious_api16.ParseTables.User;
 
 /**
  * Métodos para parsear
  */
-public class Parse {
+public class Format {
+    private static final String TAG = Format.class.getSimpleName();
 
     public static String date2String(Date fecha) {
         String respuesta = "";
@@ -72,5 +80,38 @@ public class Parse {
         catch(Exception er){}
 
         return respuesta;
+    }
+
+    public static User Facebook2User(FacebookUser facebookUser) {
+        User usuario = null;
+
+        try {
+            ParseObject.registerSubclass(User.class);
+            usuario = new User();
+            usuario.setFacebookID(facebookUser.getIdFacebook());
+            usuario.setUsername(facebookUser.getName());
+            usuario.setEmail(facebookUser.getEmail());
+            usuario.setImageURL(facebookUser.getImgURL());
+        }
+        catch(Exception er) {
+            usuario = null;
+            Log.e(TAG, er.toString());
+        }
+        return usuario;
+    }
+    public static FacebookUser User2Facebook(User user){
+        FacebookUser usuario = null;
+
+        try {
+            usuario = new FacebookUser();
+            usuario.setIdFacebook(user.getFacebookID());
+            usuario.setName(user.getUsername());
+            usuario.setEmail(user.getEmail());
+        }
+        catch(Exception er) {
+            usuario = null;
+            Log.e(TAG, er.toString());
+        }
+        return usuario;
     }
 }

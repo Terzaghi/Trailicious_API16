@@ -56,6 +56,11 @@
     <string name="title_activity_new_main">NewMainActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_facebook">FacebookActivity</string>
 
+    <string name="facebook_app_id">746029132117821</string>
+    <string name="google_api_key">AIzaSyDRs7b_cEzG3L8yhRcK4HdX6dJyijpYc64</string>
+    <string name="no_hay_datos">No hay datos que mostrar</string>
 
 </resources>
